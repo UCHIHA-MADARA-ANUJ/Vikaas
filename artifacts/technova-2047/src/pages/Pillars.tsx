@@ -189,11 +189,13 @@ export default function Pillars() {
           {/* Circuit Connections (Desktop) */}
           <div className="absolute inset-0 pointer-events-none hidden lg:block z-0">
             <svg className="w-full h-full" style={{ overflow: 'visible' }}>
-              <path className="circuit-line" d="M 33% 150 L 66% 150" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
-              <path className="circuit-line" d="M 33% 450 L 66% 450" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
-              <path className="circuit-line" d="M 16% 250 L 16% 350" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
-              <path className="circuit-line" d="M 50% 250 L 50% 350" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
-              <path className="circuit-line" d="M 83% 250 L 83% 350" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
+              {/* horizontal connectors between card columns */}
+              <line className="circuit-line" x1="33%" y1="150" x2="66%" y2="150" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
+              <line className="circuit-line" x1="33%" y1="450" x2="66%" y2="450" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
+              {/* vertical connectors between rows */}
+              <line className="circuit-line" x1="16%" y1="250" x2="16%" y2="350" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
+              <line className="circuit-line" x1="50%" y1="250" x2="50%" y2="350" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
+              <line className="circuit-line" x1="83%" y1="250" x2="83%" y2="350" stroke="rgba(255,255,255,0.1)" strokeWidth="2" strokeDasharray="5,5" />
             </svg>
           </div>
 
