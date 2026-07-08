@@ -127,3 +127,51 @@ All three fixed for the same recurring subagent bug (see Entry 2) — `AshokaGri
 **Open item flagged to user (asked this turn):** given today is July 8 and the deadline is July 10 with nothing built yet in the production artifact, asked the user to prioritize/scope the build (all 6 pages at full ambition vs. a safer phased approach) and confirm a few build-order/asset decisions before Phase 3 starts for real. See next entry for their answer once given.
 
 **Status:** `plan.md` and this logbook are the up-to-date source of truth. Next step once the user answers: scaffold the real Mission Bharat design system (tokens, chakra/telemetry components, GSAP transition wrapper, loader) in `artifacts/technova-2047`, then build pages in the confirmed order.
+
+---
+
+## Entry 6 — 2026-07-08 — Scope decisions locked; starting Phase 3 (production build) for real
+
+**User's answers this turn:**
+- Scope: deferred to agent judgment, with one hard constraint — **agent may run out of credits mid-build, so work in small phases and update this LOGBOOK after every phase "at any cost"**, not just at natural milestones. Overall bar: "the website must be best and good asf for the competition... must be banger as hell." Agent decision: go for **all 6 pages at full animation ambition** (not the lighter fallback) since the user explicitly wants max quality and is trusting agent judgment on both the build and the eventual submission-export guidance.
+- Crew portraits: generate **now**, before page-building, styled to match the site (illustrated mission-crew characters, not photos). User also asked for "advanced effects and FX" (reinforcing full-ambition scope) and a **"good background suite with graphs and tables"** — i.e. the Impact & Stats page (and possibly Pillars) should include real chart/table components (recharts is already a listed dependency), not just stat cards.
+- Check-in cadence: show the user once after the design system + loader are built (before all 6 pages), then again at the final review.
+
+**Plan going forward (small phases, logbook updated after each one per the user's explicit instruction):**
+1. **Phase 3a (next):** design tokens (navy/tricolour/chakra CSS variables, monospace + display fonts), shared components (ChakraMotif/spoke divider, telemetry number counter, radar backdrop), GSAP transition wrapper (route-level tricolour flag-wipe), the 20s launch-sequence loader. Checkpoint screenshot to user after this.
+2. **Phase 3b:** generate the 2 crew portrait illustrations (Anuj, Aarav) as image assets.
+3. **Phase 3c:** build all 6 pages per `plan.md` §2/§1.5, using recharts for real chart/table data on Impact & Stats (and Pillars where it fits).
+4. **Phase 4:** QA pass (loader-once, transitions, no console errors, responsive, copy proofread).
+5. **Phase 5:** export 6× 4K 16:9 JPGs for the actual contest submission, guide the user through submitting them (zip, min. 5 images, JPG format per the brief).
+
+**Status:** Proceeding to Phase 3a now.
+
+---
+
+## Entry 7 — 2026-07-08 — Phase 3a complete (design system, loader, transitions, Home) — checkpoint
+
+**Work completed:**
+- Installed `gsap` + `@gsap/react` as direct deps of `artifacts/technova-2047` (not in the shared pnpm catalog, added directly), ran `pnpm install`.
+- Generated the 2 crew portrait illustrations now (per user's answer to "when should I generate these" -- chose "now"): `artifacts/technova-2047/src/assets/crew/anuj-portrait.png` and `aarav-portrait.png`, styled as illustrated mission-crew characters in the navy/tricolour aesthetic, ready for the Team page build.
+- Dispatched a DESIGN subagent (`mission-bharat-design-system`) with `plan.md` as the explicit user-locked spec (not agent taste) to build: design system tokens (`index.css` -- deep navy `#030712`, saffron/india-green variables, Orbitron display + Space Mono telemetry font), `Loader.tsx` (20s cinematic launch sequence), `PageTransition.tsx` (tricolour flag-wipe on every route change), `Motifs.tsx` (reusable `RadarBackground` + `AshokaChakra` SVG), and `Home.tsx` (mission-control hero with real stats from plan.md sec 3, live IST mission clock, animated telemetry counters). Route stubs added for the other 5 pages so nav doesn't 404.
+- **Bug caught and fixed this entry:** first pass shipped a loader timeline that only lasted ~5.5 seconds total (with the T-MINUS countdown text tweening in just 3s) -- a direct violation of the user's explicit "at least 20 seconds" requirement. Sent a followup to the same subagent (via `sendFollowup`, not a fresh subagent) with the exact discrepancy; it fixed the timeline to ~20-21.5s total, synced the countdown tween duration to match, added 5 more staggered boot/status lines to fill the time naturally, and added a `prefers-reduced-motion` fallback that skips straight to complete. Verified via screenshot after the fix: countdown now visibly decrements (20 -> 19 -> ...) in real time rather than jumping.
+- **Lesson for future agents:** when a design subagent's first pass technically satisfies a feature (e.g. "has a countdown, has a sweep") but a numeric/timing requirement was explicit in the brief (e.g. "at least 20 seconds"), verify the actual duration/values in the generated code or via a timed screenshot check, not just a single screenshot glance -- a fast decorative version can look plausible in one frame but violate the spec.
+- Restarted the `artifacts/technova-2047: web` workflow after the dependency install and again after the loader fix; both times came up clean with no console/runtime errors.
+
+**Checkpoint status (per user's requested review cadence):** Phase 3a (design system + loader + transitions + Home) is done and verified working. Screenshots shown to user. Proceeding directly into Phase 3b (portraits already generated above) and Phase 3c (remaining 5 pages: Vision, Green Tech Pillars, Impact & Stats with recharts, Roadmap, Team/Contact using the generated crew portraits) per the user's standing instruction to work in phases and keep logging rather than pausing for approval at every step -- next checkpoint will be the final full-site review.
+
+**Reminder -- deadline:** July 10, 2026. Today is July 8. One buffer day (July 9) reserved per plan.md Phase 6.
+
+---
+
+## Entry 8 — 2026-07-08 — Phase 3c complete: all 6 pages built, code-reviewed, fixed
+
+**Work completed:**
+- Dispatched the same design subagent (via `sendFollowup`, preserving context/consistency with the design system) to build the remaining 5 routes: Vision (scramble/decode-text manifesto), Pillars (6 green-tech systems with self-assembling icons), Impact & Stats (recharts bar chart + a real Green Hydrogen 2030 deliverables table + animated stat counters, styled to match the telemetry aesthetic, not default recharts look), Roadmap (self-drawing GSAP flight-path timeline with ignition-flare checkpoints), Team (crew cards for Anuj Phulera and Aarav Choudhary using the generated portraits, docking entrance animation, chakra divider). All routes wired into the router and nav; removed the now-unused `PlaceholderPage.tsx`.
+- Ran the mandatory code-review subagent (architect) against the full build. Findings: (1) `prefers-reduced-motion` support was inconsistent — PageTransition, AshokaChakra/RadarBackground motifs, and several CSS animate-* utility classes ran unconditionally with no reduced-motion fallback; (2) a typecheck failure in Roadmap.tsx from an unsafe DOM-to-SVGPathElement cast; (3) a hardcoded, will-go-stale "T-MINUS 7,452 DAYS TO 2047" stat on Home not sourced from plan.md.
+- Sent all 3 findings back to the same subagent as a followup. Fixes applied: a new shared `useReducedMotion` hook applied consistently across PageTransition, Motifs, and all pages' CSS/GSAP animations; the Roadmap typing fixed and `npm run typecheck` now passes with 0 errors; the hardcoded days-count replaced with a live calculation to a real target date (India's 100th Independence Day, 2047-08-15).
+- Verified via `RefreshAllLogs` after every restart: zero workflow/runtime/browser-console errors across the whole build. Confirmed via source reads that Impact.tsx and Team.tsx match plan.md's real data (no invented stats) and the exact team/contact info the user specified.
+- **Gotcha discovered and now documented in replit.md:** the `Screenshot` tool opens a fresh browser context per call, so `sessionStorage` never persists between screenshot calls — meaning the 20s loader replays on every single screenshot, making repeated visual QA of individual pages impractical without a persistent browser session (no `browser-use` CLI or puppeteer/playwright available in this environment to work around it). Verified pages instead via source reads + typecheck + absence of console/runtime errors across every route.
+- Filled in `replit.md` (was fully templated/placeholder) with real project info: run commands, stack, file map, architecture decisions, user preferences (logbook discipline, checkpoint cadence, "banger" scope bar), and the two gotchas above (screenshot/sessionStorage limitation, gsap not in the shared pnpm catalog).
+
+**Status:** All 6 pages of the site are built, animated, code-reviewed, and passing typecheck with zero console errors. This is the "final review" checkpoint the user asked for after the full site is complete. Still outstanding before the actual contest submission: Phase 4 (manual QA pass across breakpoints/copy proofreading) and Phase 5 (export 6× 4K JPGs + guide the user through the TechNova 2047 submission process). Platform task #1 ("Set up the imported project") remains open pending user sign-off on this checkpoint.

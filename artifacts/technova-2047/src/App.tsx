@@ -4,29 +4,31 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 
-const queryClient = new QueryClient();
+import { PageTransition } from '@/components/PageTransition';
+import { CinematicLoader } from '@/components/Loader';
+import { Navbar } from '@/components/Navbar';
+import Home from '@/pages/Home';
+import Vision from '@/pages/Vision';
+import Pillars from '@/pages/Pillars';
+import Impact from '@/pages/Impact';
+import Roadmap from '@/pages/Roadmap';
+import Team from '@/pages/Team';
 
-function Home() {
-  return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900">
-          Replit Agent is building...
-        </h1>
-        <p className="mt-2 text-sm text-gray-600">
-          Your app will appear here once it's ready.
-        </p>
-      </div>
-    </div>
-  );
-}
+const queryClient = new QueryClient();
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
-    </Switch>
+    <PageTransition>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/vision" component={Vision} />
+        <Route path="/pillars" component={Pillars} />
+        <Route path="/impact" component={Impact} />
+        <Route path="/roadmap" component={Roadmap} />
+        <Route path="/team" component={Team} />
+        <Route component={NotFound} />
+      </Switch>
+    </PageTransition>
   );
 }
 
@@ -35,6 +37,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
+          <CinematicLoader />
+          <Navbar />
           <Router />
         </WouterRouter>
         <Toaster />
