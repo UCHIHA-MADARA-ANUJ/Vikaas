@@ -113,7 +113,14 @@
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
-  /* Custom scrollbar for tech feel */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  }
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -165,4 +172,16 @@
     height: calc(100% + 2px);
     border-color: hsl(var(--india-green));
   }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+@keyframes holoShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes wave {
+  0%, 100% { transform: skewX(-2deg); }
+  50% { transform: skewX(2deg); }
 }

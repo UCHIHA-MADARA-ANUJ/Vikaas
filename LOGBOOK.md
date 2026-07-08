@@ -193,3 +193,85 @@ All three fixed for the same recurring subagent bug (see Entry 2) — `AshokaGri
 **Next steps (per the plan — deadline July 10, 2026):**
 - Phase 4: manual QA pass (review all 6 pages across routes, check copy, check transitions, reduced-motion, any visual regressions)
 - Phase 5: export 6× 4K (3840×2160) 16:9 JPGs for the TechNova 2047 contest submission, then guide the user through zipping and submitting
+
+---
+
+## Entry 10 — 2026-07-08 — Enhancement brief received; plan.md v2 written; Phase 3v2 queued
+
+**User's request (verbatim intent):**
+User wants a massive enhancement pass — the existing site is "too sober." Three explicit asks and one standing instruction:
+1. **Loader: complete rework.** Current T-minus countdown is too plain. User: "flag flowing in or anything enhance it dude u have 20 seconds!" → chose "Rework the concept entirely." New concept: "India Awakens" — Chakra assembles spoke-by-spoke, data uplink floods screen, tricolour flag unfurls across the screen, "MISSION BHARAT" assembles with glitch/decode, mission stats satellite-uplink in, then a shockwave wipes into Home.
+2. **Roadmap: full 3D rework.** CSS 3D perspective viewport (`perspective: 1200px`), scroll-driven camera (rotateX scrub), milestone cards fly in from Z-depth and fade back, hyperspace speed lines, glowing dot travels the path, checkpoint flares.
+3. **50+ enhancements across all pages.** User deferred all choices to agent ("do what u like"). Final list: 52 specific enhancements across global FX (10), Home (8), Vision (6), Pillars (8), Impact (6), Roadmap (8 — 3D rework), Team (6). Full detail in `plan.md §1.5b`.
+4. **Standing instruction reconfirmed:** update LOGBOOK after every prompt/response at any cost; use appropriate skills; credits running low so logbook + plan.md must be updated before building.
+
+**Work completed this entry:**
+- Reread LOGBOOK Entries 1–9, `plan.md`, all 6 pages (via explore subagent), and `Loader.tsx` to get fully on-par.
+- Formulated the 52-enhancement plan and the "India Awakens" loader concept.
+- Wrote `plan.md` v2 — now includes §1.5a (loader overhaul, full 5-phase sequence spec), §1.5b (all 52 enhancements with file assignments), and Phase 3v2 in the build phases.
+- Updated this LOGBOOK — both files committed before any code changes, per user's credit-safety rule.
+
+**Phase 3v2 build order (executing now):**
+- **3a** — Loader complete rewrite (`Loader.tsx`): "India Awakens" 5-phase 20s sequence.
+- **3b** — New global FX: `CursorEffect.tsx` (Chakra cursor + tricolour trail), `ParticleField.tsx`, `ScrollProgress.tsx`; update `App.tsx`; `use-magnetic.ts` hook; CRT overlay in `index.css`.
+- **3c** — Per-page enhancements: items 11–38 and 47–52 across Home, Vision, Pillars, Impact, Team.
+- **3d** — Roadmap 3D rework: items 39–46 in `Roadmap.tsx`.
+
+**Critical implementation rules for any future agent picking this up:**
+- All stats must come from `plan.md §3` — no invented numbers.
+- `use-reduced-motion` hook must be respected by every new animation.
+- `gsap` + `@gsap/react` are direct deps in `artifacts/technova-2047/package.json` — NOT in workspace root catalog. Do not move or duplicate them.
+- Stray backslash-backtick (`` \` ``) bug: if a subagent-generated file 500s with "Expecting Unicode escape sequence", grep for `` \` `` and strip the backslash (recurring subagent escaping bug — see Entry 2).
+- Screenshot tool replays the 20s loader every call (sessionStorage doesn't persist). Verify pages via source reads + typecheck + log checks, not screenshots.
+- Team info is locked: Anuj Phulera — 9891011165 — madara.coding.projects@gmail.com; Aarav Choudhary — 9250083692 — aaravgurmeet@gmail.com. Both Grade 10, Colonels Central Academy. Team name: Vikaas.
+- Crew portraits: `artifacts/technova-2047/src/assets/crew/anuj-portrait.png` + `aarav-portrait.png`.
+
+**Status:** plan.md v2 and LOGBOOK both committed. Build starting. Next entry after Phase 3v2 completes.
+
+---
+
+## Entry 11 — 2026-07-08 — Phase 3v2 complete: all 52 enhancements built, code-reviewed, fixed
+
+**Work completed:**
+
+**Loader — "India Awakens" (complete rewrite of Loader.tsx):**
+- Phase 1 (0-3s): single saffron glow point pulses at center; Ashoka Chakra assembles spoke-by-spoke via GSAP strokeDashoffset stagger (24 spokes, 0.1s each).
+- Phase 2 (3-8s): 25 floating telemetry chars (randomly positioned, cycling random chars via setInterval); boot status lines stagger in at bottom.
+- Phase 3 (8-14s): three full-width flag bands (saffron/white/green) sweep from x:-100vw to x:0 sequentially; Ashoka Chakra spins in white band center.
+- Phase 4 (14-18s): flag bands fly off upward; "MISSION BHARAT" assembles letter-by-letter (scramble effect); mission stats flash in (500 GW TARGET / NET ZERO 2070 / >=5 MMT H2 / $200B EV OPPORTUNITY).
+- Phase 5 (18-20s): "MISSION BHARAT: ONLINE" pulses saffron; shockwave rings expand from center; flash to white; setIsComplete(true).
+- sessionStorage gate and useReducedMotion skip preserved.
+- **Bug caught in code review and fixed:** chakra-center GSAP tween had `repeat: -1` inside the master timeline, making `onComplete` never fire. Fixed by moving the chakra spin to a standalone `gsap.to()` OUTSIDE the master `tl`.
+
+**New global components:**
+- `src/components/CursorEffect.tsx`: 20x20 Ashoka Chakra follows cursor via GSAP quickTo; tricolour pixel trail (saffron/white/india-green dots, fade 0.6s, max 20 active); desktop-only; cursor hidden; useReducedMotion aware.
+- `src/components/ParticleField.tsx`: 60 tiny tricolour particles drifting with GSAP yoyo; reduced-motion safe.
+- `src/components/ScrollProgress.tsx`: fixed tricolour gradient bar at top, scaleX scrubbed by ScrollTrigger.
+- `src/hooks/use-magnetic.ts`: magnetic button hook (GSAP quickTo on hover, elastic snap on leave).
+
+**index.css additions:**
+- CRT scanline overlay (`body::after` with repeating-linear-gradient, z-index 9999, pointer-events-none).
+- `.backface-hidden`, `@keyframes holoShift`, `@keyframes wave` for card flip, holographic, and flag FX.
+
+**App.tsx:** CursorEffect, ScrollProgress, ParticleField mounted as global siblings.
+
+**Navbar.tsx:** scroll progress indicator added; mini 8-spoke chakra SVG on nav link hover.
+
+**Per-page enhancements:**
+- **Home.tsx:** 80-dot star field behind hero; "ENTERING MISSION CONTROL" ticker text; small animated Indian flag SVG; scanline texture inside telemetry panels.
+- **Vision.tsx:** "CLASSIFIED" watermark (faint diagonal repeating text); "INCOMING TRANSMISSION" side strip; blinking cursor after ScrambleText blocks; scan-line reveal per section.
+- **Pillars.tsx:** card flip on hover (CSS 3D rotateY, front/back faces, backface-hidden); "SYSTEM ONLINE" flash per card entrance; unique glow color per pillar (Solar/Wind/H2/EV/SmartGrid/Waste); animated progress bars on back face; circuit connection SVG lines; enhanced Z-depth entrance stagger.
+- **Impact.tsx:** 4-panel KPI hero row (500 GW / 5 MMT / $200B / 50 MMT) with GSAP counter tween; 3 SVG progress ring cluster + spinning AshokaChakra; recharts chart HUD restyled (neon drop-shadow on bars); table row entrance animation.
+- **Roadmap.tsx:** full 3D rework — perspective:1200px viewport; scroll-driven rotateX camera scrub; milestone cards fly in from Z:-300 and recede on scroll past; 25 hyperspace speed lines; glowing path dot travels the flight path; checkpoint flares on entrance; "NOW — 2026" pulsing marker.
+- **Team.tsx:** TypewriterHeader ("CREW MANIFEST" terminal reveal); holographic shimmer overlay on cards (CSS holoShift gradient animation); orbital SVG rings around portraits; click-to-copy contact fields (navigator.clipboard + COPIED flash); mission patch SVG hexagonal badge between crew cards.
+
+**TypeScript fixes applied:**
+- Impact.tsx / Pillars.tsx: `as unknown as SVGGeometryElement` casts for `.getTotalLength()` calls.
+- Team.tsx: `return undefined` added to cover all useEffect code paths.
+
+**Verification:**
+- `pnpm --filter @workspace/technova-2047 run typecheck` → 0 errors.
+- Browser console → zero runtime/HMR errors across all 14 updated files.
+- Workflow running clean.
+
+**Status:** All 52 enhancements are live. Site is ready for the user's visual review. Remaining before contest submission: Phase 4 (QA pass) and Phase 5 (export 6× 4K JPGs).
