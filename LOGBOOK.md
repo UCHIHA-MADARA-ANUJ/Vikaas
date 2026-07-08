@@ -68,3 +68,20 @@ All three were placed as live iframes on the canvas (shape ids `concept-command-
 **Lesson for future agents:** if a design-subagent-generated `.tsx` file 500s in the mockup sandbox with a Babel "Expecting Unicode escape sequence" error, grep the file for `` \` `` (backslash immediately before a backtick) — it's a stray escape from the subagent, not a real syntax feature; strip the backslash.
 
 **Status:** 3 concept directions are live on the canvas awaiting the user's pick (or a request to merge/iterate). Next step once a direction is chosen: scaffold the real `react-vite` production artifact, define the ~6 contest pages (Home/Hero, Vision, Green Tech Pillars, Impact & Stats, Roadmap/Timeline, Team/Contact) in the chosen direction with GSAP page transitions, then export each final page as a JPG for the July 10 submission.
+
+---
+
+## Entry 3 — 2026-07-08 — India-tricolour direction lock + 3 more variants
+
+**User's feedback on the first 3 concepts:** wants to blend directions, explicitly requires the **whole site to be full-India tricolour themed** (saffron/white/green + Ashoka Chakra as core identity, not a subtle accent), and wants the loader itself to be a "banger" — described as showing the tricolour via GSAP/video sweep that resolves into the front page with a big sweeping transition. Also asked to see more variety before finalizing.
+
+**Work completed — 3 additional concept screens**, same pattern (loader -> hero, GSAP-driven, live in `artifacts/mockup-sandbox/src/components/mockups/green-tech-2047/`):
+4. **TricolorSweep.tsx** — direct blend of Command Center's HUD/terminal energy with the tricolour as the literal color engine of the loader: terminal boot lines under a saffron→white→green sweep, an Ashoka Chakra HUD spin-up, then a mask-reveal into the hero. This is the most literal answer to the user's "tricolour banger loader" request.
+5. **AshokaGrid.tsx** — the Ashoka Chakra (24-spoke line art) as the entire motion engine: assembles, spins/locks, radiates tricolour light, then dissolves into the page's structural grid; hero content reveals with radial stagger; impact pillars (Solar/Mobility/Hydrogen/Agriculture) echo the spoke motif.
+6. **MissionBharat.tsx** — ISRO-style mission-control/launch-countdown loader (T-minus ticker, ignition status lines), tricolour plume sweep at "liftoff", hard-cut into a launch-dashboard-style hero.
+
+All three fixed for the same recurring subagent bug (see Entry 2) — `AshokaGrid.tsx` had one stray `` \` `` in an SVG `transform` template literal; fixed the same way. All 6 concepts (3 from Entry 2 + 3 here) now render without console/parse errors and are placed as live iframes on the canvas in two rows of three, aligned/distributed, and presented.
+
+**Open decision:** user has not yet picked a final direction/blend among the now 6 concepts. Strong candidate per the user's own stated preference is **TricolorSweep** (HUD banger loader + full tricolour identity) or a further blend of TricolorSweep + AshokaGrid (chakra-as-motion-engine + terminal HUD). Next agent should confirm the pick before scaffolding the real multi-page `react-vite` site — do not assume a default.
+
+**Reminder — deadline:** contest submission due **July 10, 2026**; today is July 8, 2026. Once direction is confirmed, move fast: scaffold real site, build ~6 pages, then screenshot/export JPGs well before the deadline to leave slack for review.
