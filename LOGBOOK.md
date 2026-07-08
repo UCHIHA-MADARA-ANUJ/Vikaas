@@ -175,3 +175,21 @@ All three fixed for the same recurring subagent bug (see Entry 2) — `AshokaGri
 - Filled in `replit.md` (was fully templated/placeholder) with real project info: run commands, stack, file map, architecture decisions, user preferences (logbook discipline, checkpoint cadence, "banger" scope bar), and the two gotchas above (screenshot/sessionStorage limitation, gsap not in the shared pnpm catalog).
 
 **Status:** All 6 pages of the site are built, animated, code-reviewed, and passing typecheck with zero console errors. This is the "final review" checkpoint the user asked for after the full site is complete. Still outstanding before the actual contest submission: Phase 4 (manual QA pass across breakpoints/copy proofreading) and Phase 5 (export 6× 4K JPGs + guide the user through the TechNova 2047 submission process). Platform task #1 ("Set up the imported project") remains open pending user sign-off on this checkpoint.
+
+---
+
+## Entry 9 — 2026-07-08 — Re-import/env-reprovision (new session); site confirmed live
+
+**Context on resume:** project re-imported into a new Replit environment via GitHub sync — same pattern as Entry 5. This logbook is the continuity mechanism; read Entries 1–8 for the full build history.
+
+**Work completed this entry:**
+- Ran `pnpm install` (node_modules were absent, as expected after re-import).
+- Restarted the `artifacts/technova-2047: web` workflow — came up clean, zero console/runtime errors.
+- Confirmed via screenshot: the 20s cinematic T-MINUS launch-sequence loader is rendering correctly on first load.
+- All 3 artifact workflows were re-registered by the platform (technova-2047 web, mockup-sandbox, api-server).
+
+**Current state:** The site is fully built (all 6 pages, all animations, passing typecheck) and live in the preview. No code changes made this session.
+
+**Next steps (per the plan — deadline July 10, 2026):**
+- Phase 4: manual QA pass (review all 6 pages across routes, check copy, check transitions, reduced-motion, any visual regressions)
+- Phase 5: export 6× 4K (3840×2160) 16:9 JPGs for the TechNova 2047 contest submission, then guide the user through zipping and submitting
