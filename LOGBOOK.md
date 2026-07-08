@@ -44,3 +44,27 @@
 **Questions asked to the user (see chat):** relationship of the Event-4 image to this build; the real subject/brand/purpose of the "banger website"; single-page vs multi-page; content sections wanted; whether they want Canvas exploration of multiple directions before full build, or to move straight to build.
 
 **Status:** Awaiting user answers. No code/artifacts created yet beyond this logbook.
+
+---
+
+## Entry 2 — 2026-07-08 — Scope locked; 3 canvas concept directions built
+
+**User's answers to Phase-0 questions:**
+- Confirmed: the website **is** for the TechNova 2047 contest (Green Technology in India / Viksit Bharat 2047 theme), due **July 10, 2026**. Final deliverable must ultimately be static JPG screens (min. 5), but the user wants it built as a real, extremely well-designed, animated coded website first — the JPG export is the last step, not a shortcut. Quote: "we will make a websiet first extremely good deisgner pages! ...its jpgsd also feel like deisgner."
+- Site subject = the competition's own theme (Green Tech in India / Viksit Bharat 2047) — no separate brand.
+- Structure: **multi-page** with animated transitions between pages.
+- Wants Canvas concept exploration first (confirmed yes), and wants to be walked through how the design/canvas capabilities are being used as we go.
+- Wants reactbits.dev (and similar) reviewed for a comprehensive animation component palette — done: fetched reactbits.dev, catalogued available effect categories (backgrounds: Dot Field, Line Waves, Soft Aurora, Radar, Beams, Aurora, Balatro, Grainient; animations: Blob Cursor, Magnet Lines, Antigravity, Ballpit, Pixel Trail, Magic Rings, Ribbons, Orbit Images, Metallic Paint, Splash Cursor). These inform the motion vocabulary for later build phases (GSAP-driven equivalents, since reactbits itself is a component library reference rather than something we install wholesale).
+
+**Work completed this entry — Phase 1 (Canvas concept exploration):**
+Dispatched 3 parallel DESIGN subagents into the mockup-sandbox canvas, each producing a full "boot-loader → hero" concept screen for the TechNova 2047 site, at `artifacts/mockup-sandbox/src/components/mockups/green-tech-2047/`:
+1. **CommandCenter.tsx** — dark mission-control/HUD direction (near-black `#030712`, cyan/amber glow, terminal boot log, radar sweep, telemetry-style stat widgets). Closest homage to the user's reference boot-sequence video.
+2. **SolarDawn.tsx** — solarpunk/bioluminescent direction (deep green `#010a05` base, teal/emerald/gold glow, "blooming light" loader, drifting particles, ambient (non-boxed) data accents, GSAP ScrollTrigger parallax).
+3. **EditorialIndia.tsx** — editorial futurism with an Indian identity (navy `#0A111C` / cream `#F4F2EC` / saffron `#EB5E28` / deep green `#0E6E45`, huge architectural type, a "1947→2047" typographic counter loader, grid-integrated data strip).
+
+All three were placed as live iframes on the canvas (shape ids `concept-command-center`, `concept-solar-dawn`, `concept-editorial-india`), aligned and distributed in a row, and presented to the user.
+
+**Bug fixed:** two of the three generated files (`SolarDawn.tsx`, `EditorialIndia.tsx`) shipped with a literal backslash-backtick (`` \` ``) inside template literals instead of a plain backtick — a subagent escaping mistake that threw a Babel parse error ("Expecting Unicode escape sequence \uXXXX") and broke the preview with a 500 overlay. Fixed by replacing `` \` `` with `` ` `` at the affected lines (random particle positions in SolarDawn; SVG-noise `backgroundImage` and a stat-color class string in EditorialIndia). Re-screenshotted after the fix — both now render without console/parse errors (screenshots were taken mid-boot-animation since these auto-play on mount, which is expected, not a bug).
+**Lesson for future agents:** if a design-subagent-generated `.tsx` file 500s in the mockup sandbox with a Babel "Expecting Unicode escape sequence" error, grep the file for `` \` `` (backslash immediately before a backtick) — it's a stray escape from the subagent, not a real syntax feature; strip the backslash.
+
+**Status:** 3 concept directions are live on the canvas awaiting the user's pick (or a request to merge/iterate). Next step once a direction is chosen: scaffold the real `react-vite` production artifact, define the ~6 contest pages (Home/Hero, Vision, Green Tech Pillars, Impact & Stats, Roadmap/Timeline, Team/Contact) in the chosen direction with GSAP page transitions, then export each final page as a JPG for the July 10 submission.
