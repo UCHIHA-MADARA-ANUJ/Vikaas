@@ -35,6 +35,37 @@ This plays once per session (stored in `sessionStorage`), not on every navigatio
 
 ---
 
+## 1.5 Animation & FX suite ("banger" vocabulary, GSAP-first, reactbits.dev-informed)
+
+Reviewed reactbits.dev's component catalogue for motion vocabulary (it's a reference for effect *categories*, not something installed wholesale — every effect below gets rebuilt natively in GSAP/Framer Motion/Canvas so it matches the Mission Bharat palette exactly and stays lightweight). Effects are assigned deliberately per page/purpose, not scattered — see `frontend-design` skill's rule: one orchestrated moment lands harder than decoration everywhere.
+
+**Ambient background layer (pick 1–2, used consistently site-wide, low-opacity so content stays legible):**
+- **Radar sweep** (reactbits `Radar`) — a slow rotating scan-line + concentric rings, tricolour-tinted, anchored behind hero/stat sections. Reads as "mission telemetry," not decoration.
+- **Dot Field / Line Waves** (reactbits `Dot Field`, `Line Waves`) — a subtle grid of dots or scanlines that ripple on cursor proximity — used behind the Vision and Roadmap pages as a "flight-path grid."
+- **Soft Aurora / Beams** (reactbits `Soft Aurora`, `Beams`) — tricolour light beams/aurora wash used ONLY at the ignition moment of the loader and section dividers — reserved for high-impact transitions so it doesn't get diluted into wallpaper.
+
+**Signature per-page motion (each page's one memorable moment, per `frontend-design`'s "spend your boldness in one place"):**
+- **Home:** the 20s launch-sequence loader (T-minus ticker → telemetry flicker-in → tricolour ignition plume → hard-cut liftoff into hero). Hero telemetry strip counts up with GSAP `ScrollTrigger`-free number-tweening on mount (it's above the fold).
+- **Vision:** manifesto text revealed line-by-line with a typewriter/telemetry-decode effect (monospace characters scrambling into place, à la reactbits `Metallic Paint`/decode-text energy) as the user scrolls — pairs a "briefing being transmitted" feel with the content.
+- **Green Tech Pillars:** 6 pillar modules on a hex/orbit layout; each pillar's icon assembles from scattered line fragments (spoke motif) on scroll-into-view, staggered by ~80ms — echoes reactbits `Magnet Lines`/`Orbit Images` energy natively in GSAP.
+- **Impact & Stats:** progress rings and bar telemetry animate their fill on scroll-trigger (real percentages from §3), with a radar-sweep backdrop; counters tick up from 0 with eased easing, not linear.
+- **Roadmap:** a horizontal flight-path line draws itself (`stroke-dashoffset` GSAP tween) left-to-right as the user scrolls, with checkpoint markers (2025/2030/2047/2070) popping in with a small ignition-flare burst as the path reaches them.
+- **Team/Contact:** crew portrait cards enter with a staggered "docking" animation (slide + fade + slight 3D tilt settle), chakra-spoke divider between the two cards.
+
+**Recurring signature (site-wide, ties every page together):**
+- **Chakra spoke dividers** — the 24-spoke Ashoka Chakra line art used as section dividers/progress rings, not just a logo (per `plan.md` §1's existing rule) — this is the one motif repeated everywhere, which is what makes the site feel designed rather than assembled from a component kit.
+- **Tricolour flag-wipe page transition** — unchanged from §1, the connective tissue between all 6 pages.
+
+**Micro-interactions (small, everywhere, cheap to build — the "best FX ever made" baseline the user asked for):**
+- Buttons/CTAs: magnetic hover pull (cursor-attraction, reactbits `Magnet Lines`-style) + a thin tricolour underline sweep on hover.
+- Cards/pillars: subtle tilt-on-hover (perspective transform) + glow-border pulse.
+- Cursor: a small tricolour trail/glow following the pointer on desktop only (reactbits `Splash Cursor`/`Pixel Trail` energy), disabled on touch devices.
+- Respect `prefers-reduced-motion`: every GSAP timeline gets a reduced-motion fallback (instant/opacity-only), per `frontend-design`'s quality floor.
+
+**Stack for implementation:** GSAP + `@gsap/react` + ScrollTrigger for choreography, Framer Motion (already a listed dependency) for simpler component-level transitions, native SVG/canvas for the chakra and radar motifs (no heavy 3D library needed — Three.js would be overkill for this contest's static-JPG-export endpoint and adds real risk to the 2-day timeline).
+
+---
+
 ## 2. Site map — 6 pages (satisfies the contest's 5-page minimum)
 
 1. **Home / Mission Control** — the 20s loader lives here on first visit, then the hero: mission statement, headline, live-looking telemetry strip (renewable capacity, emissions trend, mission clock), primary CTA into the site.

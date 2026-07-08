@@ -106,3 +106,24 @@ All three fixed for the same recurring subagent bug (see Entry 2) — `AshokaGri
 - Wrote `plan.md` at the project root: locked creative direction, full 6-page site map (Home, Vision, Green Tech Pillars, Impact & Stats, Roadmap 2025→2047, Team/Contact), real data to ground content, crew-portrait plan, and a 6-phase build plan (exploration [done] → planning [done] → production build → QA → export 6× 4K 16:9 JPGs → buffer day). Read `plan.md` in full before continuing — it is the source of truth for site structure going forward, this LOGBOOK is the narrative history.
 
 **Status / next step:** Phase 3 (production build) starts next — scaffold a real `react-vite` artifact (separate from the mockup-sandbox canvas used for exploration), build the shared Mission Bharat design system + GSAP transition wrapper (20s one-time loader + tricolour wipe on every nav), then the 6 pages per `plan.md` §2, then generate the 2 crew portraits. Nothing built yet in the production artifact as of this entry — only the mockup-sandbox concept components exist.
+
+---
+
+## Entry 5 — 2026-07-08 — New session picked up (env re-provisioned); plan enhanced with a full animation/FX suite
+
+**Context on resume:** project environment was re-provisioned (fresh workspace, `pnpm install` needed, workflows re-registered) — this is expected per this project's own continuity design (Entry 1's stated purpose for this logbook). Read this entire file + `plan.md` + `.agents/memory/MEMORY.md` before acting, per the standing rule. `artifacts/technova-2047` on disk still only has the placeholder scaffold (`App.tsx` shows "Replit Agent is building...") — Phase 3 production build has NOT started yet despite Entry 4 saying it was next; treat that as the accurate current state, not the plan.md phase list.
+
+**User's explicit standing rules for this project (reconfirmed this session, apply going forward):**
+1. Log this `LOGBOOK.md` after every prompt/response — not just major milestones — so the project can be switched to a different AI/account at any point with zero lost context.
+2. Always use the appropriate skill(s) for whatever is being done (explicitly: use skill-finding tools proactively before acting).
+3. Before building further, enhance `plan.md`'s animation ambition ("make it more OP") and ask the user clarifying questions about what's wanted next, rather than assuming.
+
+**Work completed this entry:**
+- Ran `pnpm install` and restarted all 3 workflows (technova-2047 web, mockup-sandbox, api-server) — all running clean, no console errors.
+- Used `skillSearch` to find animation-relevant skills: `ui-ux-pro-max`, `video-js`, `frontend-design`, `superdesign`. Read `frontend-design` in full — key rule applied to the plan update: spend animation boldness deliberately (one signature moment per page + a few consistent motifs), not scattered effects everywhere, or it reads as AI-generated.
+- Revisited reactbits.dev's component catalogue (categories: Backgrounds — Dot Field, Line Waves, Soft Aurora, Radar, Beams, Shape Grid, Balatro, Grainient, Aurora; Animations — Blob Cursor, Magnet Lines, Antigravity, Ballpit, Pixel Trail, Magic Rings, Ribbons, Orbit Images, Metallic Paint, Splash Cursor, ColorBends). These are a *reference vocabulary* — nothing installed from reactbits directly; every effect gets rebuilt natively in GSAP/Framer Motion/SVG so it matches the Mission Bharat tricolour/navy system.
+- Added **plan.md §1.5 "Animation & FX suite"**: assigns a specific signature motion moment to each of the 6 pages (decode-text reveal on Vision, self-assembling spoke icons on Pillars, animating progress rings + radar backdrop on Impact, self-drawing flight-path on Roadmap, docking-card entrance on Team), a consistent ambient background layer (radar sweep / dot field, used sparingly), site-wide micro-interactions (magnetic buttons, tilt-on-hover cards, cursor trail, `prefers-reduced-motion` fallback for every timeline), and locked the implementation stack: GSAP + `@gsap/react` + ScrollTrigger + Framer Motion, native SVG/canvas for the chakra/radar motifs — explicitly decided **against** Three.js/3D for this build (contest's actual deliverable is static JPG exports; 3D adds real risk to the 2-day timeline for no export-visible benefit).
+
+**Open item flagged to user (asked this turn):** given today is July 8 and the deadline is July 10 with nothing built yet in the production artifact, asked the user to prioritize/scope the build (all 6 pages at full ambition vs. a safer phased approach) and confirm a few build-order/asset decisions before Phase 3 starts for real. See next entry for their answer once given.
+
+**Status:** `plan.md` and this logbook are the up-to-date source of truth. Next step once the user answers: scaffold the real Mission Bharat design system (tokens, chakra/telemetry components, GSAP transition wrapper, loader) in `artifacts/technova-2047`, then build pages in the confirmed order.

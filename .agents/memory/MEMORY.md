@@ -1,0 +1,1 @@
+- [TechNova 2047 project rules](technova-2047-project-rules.md) — this project has its own LOGBOOK.md continuity convention; read it before any project-specific work.
