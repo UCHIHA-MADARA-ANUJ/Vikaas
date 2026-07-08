@@ -85,3 +85,24 @@ All three fixed for the same recurring subagent bug (see Entry 2) — `AshokaGri
 **Open decision:** user has not yet picked a final direction/blend among the now 6 concepts. Strong candidate per the user's own stated preference is **TricolorSweep** (HUD banger loader + full tricolour identity) or a further blend of TricolorSweep + AshokaGrid (chakra-as-motion-engine + terminal HUD). Next agent should confirm the pick before scaffolding the real multi-page `react-vite` site — do not assume a default.
 
 **Reminder — deadline:** contest submission due **July 10, 2026**; today is July 8, 2026. Once direction is confirmed, move fast: scaffold real site, build ~6 pages, then screenshot/export JPGs well before the deadline to leave slack for review.
+
+---
+
+## Entry 4 — 2026-07-08 — Direction locked (Mission Bharat) + full plan written
+
+**User's final creative call:** **Mission Bharat** is the winning direction. Requirements layered on top:
+- The one-time loader must be a genuine "banger" — **at least 20 seconds** long (mission-control launch sequence).
+- It should play **once only**, on first load — confirmed by the user, not on every page nav.
+- Every page-to-page navigation must ALSO be a banger: specifically **a tricolour flag sweeping left-to-right across the screen** as the transition (not the 20s loader — a fast wipe).
+- Every component/section across the whole site must be highly animated ("banger... best anims and effects everywhere throughout"), not just the hero.
+- Team/Contact page real info collected: team name **Vikaas**; Anuj Phulera (lead/coder/builder, 9891011165, madara.coding.projects@gmail.com) and Aarav Choudhary (innovator/designer, 9250083692, aaravgurmeet@gmail.com), both Grade 10 at Colonels Central Academy. User wants **custom-generated illustrated "crew portrait" characters** for both, not photos, styled to match the site.
+- Content should use **real researched stats**, not invented numbers — web research was done this session (see `plan.md` §3 for sourced figures: 500 GW non-fossil target by 2030, energy-independence-by-2047 / Net Zero-by-2070 goals, National Green Hydrogen Mission targets, NITI Aayog's EV $200B framing, ~856 MW installed waste-to-energy capacity).
+- Pillars: user deferred to agent recommendation ("all that u recommend") — locked in as Solar, Wind, Green Hydrogen, EV & Green Mobility, Smart Grids, Waste-to-Energy & Circular Economy (6 pillars, one page).
+- Export spec: no exact size in the contest brief; user deferred to agent judgment — locked in as **4K, 3840×2160, 16:9 JPGs**, one per page.
+- User explicitly asked that all planning live in **committed project files**, not just agent memory, so a future AI/account swap can resume with full context — this is why `plan.md` was created (structural plan/site map/data/phases) alongside this `LOGBOOK.md` (session diary). Treat both as required reading for any future agent picking this up.
+
+**Work completed this entry:**
+- Ran real web research (renewable capacity targets, Viksit Bharat/Net Zero framing, Green Hydrogen Mission, EV opportunity sizing, waste-to-energy capacity) — sources and figures captured in `plan.md` §3.
+- Wrote `plan.md` at the project root: locked creative direction, full 6-page site map (Home, Vision, Green Tech Pillars, Impact & Stats, Roadmap 2025→2047, Team/Contact), real data to ground content, crew-portrait plan, and a 6-phase build plan (exploration [done] → planning [done] → production build → QA → export 6× 4K 16:9 JPGs → buffer day). Read `plan.md` in full before continuing — it is the source of truth for site structure going forward, this LOGBOOK is the narrative history.
+
+**Status / next step:** Phase 3 (production build) starts next — scaffold a real `react-vite` artifact (separate from the mockup-sandbox canvas used for exploration), build the shared Mission Bharat design system + GSAP transition wrapper (20s one-time loader + tricolour wipe on every nav), then the 6 pages per `plan.md` §2, then generate the 2 crew portraits. Nothing built yet in the production artifact as of this entry — only the mockup-sandbox concept components exist.
